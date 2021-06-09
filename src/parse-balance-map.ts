@@ -54,7 +54,7 @@ export function parseBalanceMap(balances: OldFormat | NewFormat[]): MerkleDistri
       isUser: reasons.includes('user'),
     }
 
-    memo[parsed] = { amount: parsedNum, ...(reasons === '' ? {} : { flags }) }
+    memo[parsed] = { amount: BigNumber.from(0) }
     return memo
   }, {})
 
@@ -73,7 +73,7 @@ export function parseBalanceMap(balances: OldFormat | NewFormat[]): MerkleDistri
     memo[address] = {
       index,
       amount: amount.toHexString(),
-      proof: tree.getProof(index, address, amount),
+      proof: tree.getProof(address),
       ...(flags ? { flags } : {}),
     }
     return memo
